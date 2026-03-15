@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#15141b"/>
+      <stop offset="100%" stop-color="#3a1b1b"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="400" fill="url(#bg)"/>
+  <circle cx="150" cy="105" r="44" fill="#b4cab3" opacity="0.9"/>
+  <path d="M82 340c16-90 37-141 68-141s52 51 68 141" fill="#5d2c2d"/>
+  <path d="M103 190l47 22 47-22-47-54z" fill="#7a5a38" opacity="0.85"/>
+  <text x="150" y="365" text-anchor="middle" fill="#f2dfc8" font-family="Georgia, serif" font-size="28">Nihlathak</text>
+</svg>

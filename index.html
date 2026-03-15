@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diablo II Run Counter</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="home">
+  <div class="page-shell">
+    <header class="topbar glass">
+      <div>
+        <p class="eyebrow">Diablo II Tracker</p>
+        <h1>Run Counter</h1>
+      </div>
+      <nav class="topnav">
+        <a class="nav-link active" href="index.html">Tracker</a>
+        <a class="nav-link" href="stats.html">All Stats</a>
+      </nav>
+    </header>
+
+    <main class="home-layout">
+      <section class="spot-panel glass">
+        <div class="spot-copy">
+          <p class="eyebrow">Choose your target</p>
+          <h2>Target</h2>
+          <label class="field-label" for="farmSpot">Spot / Category</label>
+          <select id="farmSpot" class="spot-select"></select>
+          <button id="addSpotButton" class="secondary-button add-spot-button" type="button">Add new farming spot</button>
+
+          <div id="rushDifficultyWrap" class="rush-config is-hidden" aria-hidden="true">
+            <label class="field-label" for="rushDifficulty">Rush difficulty</label>
+            <select id="rushDifficulty" class="spot-select">
+              <option value="normal">Normal</option>
+              <option value="nightmare">Nightmare</option>
+              <option value="hell">Hell</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="spot-art-wrap">
+          <img id="spotImage" class="spot-art" src="assets/spots/andariel.png" alt="Selected target" />
+        </div>
+      </section>
+
+      <section class="tracker-panel glass">
+        <div class="run-meta">
+          <div class="metric-card">
+            <span class="metric-label" id="currentRunLabel">Current run</span>
+            <strong id="currentRunNumber">1</strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label" id="timerLabel">Run timer</span>
+            <strong id="runTimer">00:00.0</strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label" id="todayAvgLabel">Today's avg run time</span>
+            <strong id="todayAverage">00:00.0</strong>
+          </div>
+        </div>
+
+        <button id="newRunButton" class="primary-run-button">Start / New Run</button>
+
+        <section id="lootSection" class="loot-section">
+          <p class="section-label">Loot</p>
+          <div class="loot-grid loot-grid-6">
+            <button class="loot-button loot-shit active" data-loot="shit" type="button">Shit</button>
+
+            <div id="uniqueDropControl" class="key-drop-control" aria-hidden="false">
+              <button id="uniqueToggleButton" class="loot-button key-toggle-button" type="button">Unique</button>
+              <div class="key-stepper">
+                <button id="uniqueMinusButton" class="stepper-button" type="button">-</button>
+                <strong id="uniqueCountDisplay">0</strong>
+                <button id="uniquePlusButton" class="stepper-button" type="button">+</button>
+              </div>
+            </div>
+
+            <div id="setDropControl" class="key-drop-control" aria-hidden="false">
+              <button id="setToggleButton" class="loot-button key-toggle-button" type="button">Set</button>
+              <div class="key-stepper">
+                <button id="setMinusButton" class="stepper-button" type="button">-</button>
+                <strong id="setCountDisplay">0</strong>
+                <button id="setPlusButton" class="stepper-button" type="button">+</button>
+              </div>
+            </div>
+
+            <button class="loot-button" data-loot="highRune" type="button">High Rune</button>
+
+            <div id="keyDropControl" class="key-drop-control is-hidden" aria-hidden="true">
+              <button id="keyToggleButton" class="loot-button key-toggle-button" type="button">Key</button>
+              <div class="key-stepper">
+                <button id="keyMinusButton" class="stepper-button" type="button">-</button>
+                <strong id="keyCountDisplay">0</strong>
+                <button id="keyPlusButton" class="stepper-button" type="button">+</button>
+              </div>
+            </div>
+
+            <div id="heraldDropControl" class="key-drop-control is-hidden" aria-hidden="true">
+              <button id="heraldToggleButton" class="loot-button key-toggle-button active" type="button" disabled>Heralds Killed</button>
+              <div class="key-stepper">
+                <button id="heraldMinusButton" class="stepper-button" type="button">-</button>
+                <strong id="heraldCountDisplay">0</strong>
+                <button id="heraldPlusButton" class="stepper-button" type="button">+</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="rushVisualSection" class="rush-visual-section is-hidden" aria-hidden="true">
+          <img id="rushVisualImage" class="rush-visual-image" src="assets/tomb_symbols.png" alt="Rush tomb symbols" />
+        </section>
+
+        <div class="run-actions">
+          <button id="pauseRunButton" class="secondary-button" type="button">Pause Run</button>
+          <button id="completeRunButton" class="success-button" type="button">Complete</button>
+        </div>
+      </section>
+
+      <section class="summary-panel glass">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Session snapshot</p>
+            <h2 id="summaryHeading">Current selection summary</h2>
+          </div>
+        </div>
+
+        <div id="farmSummary" class="summary-mode">
+          <div class="summary-grid">
+            <article class="summary-card">
+              <span>Runs today</span>
+              <strong id="summaryRunsToday">0</strong>
+            </article>
+            <article class="summary-card">
+              <span>Unique ratio</span>
+              <strong id="summaryUniqueRate">0%</strong>
+            </article>
+            <article class="summary-card">
+              <span>Set ratio</span>
+              <strong id="summarySetRate">0%</strong>
+            </article>
+            <article class="summary-card">
+              <span>High Rune rate</span>
+              <strong id="summaryHighRuneRate">0%</strong>
+            </article>
+            <article class="summary-card" id="summaryKeyRateCard">
+              <span>Key ratio</span>
+              <strong id="summaryKeyRate">N/A</strong>
+            </article>
+            <article class="summary-card" id="summaryKeysCard">
+              <span># of keys</span>
+              <strong id="summaryKeys">N/A</strong>
+            </article>
+            <article class="summary-card" id="summaryHeraldCountCard">
+              <span>Heralds Killed</span>
+              <strong id="summaryHeraldCount">N/A</strong>
+            </article>
+            <article class="summary-card">
+              <span>Today's avg time</span>
+              <strong id="summaryTodayAvg">00:00.0</strong>
+            </article>
+          </div>
+
+          <div class="section-head compact">
+            <div>
+              <p class="eyebrow">Lifetime</p>
+              <h3>Overall for this farming spot</h3>
+            </div>
+          </div>
+
+          <div class="summary-grid compact-grid">
+            <article class="summary-card compact">
+              <span>Total runs</span>
+              <strong id="overallRuns">0</strong>
+            </article>
+            <article class="summary-card compact">
+              <span>Total Unique</span>
+              <strong id="overallUnique">0</strong>
+            </article>
+            <article class="summary-card compact">
+              <span>Total Set</span>
+              <strong id="overallSet">0</strong>
+            </article>
+            <article class="summary-card compact">
+              <span>Total High Rune</span>
+              <strong id="overallHighRune">0</strong>
+            </article>
+            <article class="summary-card compact" id="overallKeysCard">
+              <span># of keys</span>
+              <strong id="overallKeys">N/A</strong>
+            </article>
+            <article class="summary-card compact" id="overallKeyRateCard">
+              <span>Key ratio</span>
+              <strong id="overallKeyRate">N/A</strong>
+            </article>
+            <article class="summary-card compact" id="overallHeraldCountCard">
+              <span>Heralds Killed</span>
+              <strong id="overallHeraldCount">N/A</strong>
+            </article>
+            <article class="summary-card compact">
+              <span>Overall avg time</span>
+              <strong id="overallAverage">00:00.0</strong>
+            </article>
+          </div>
+
+          <div class="recent-runs-wrap">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">Latest entries</p>
+                <h3>Saved global runs</h3>
+              </div>
+            </div>
+            <div id="recentRunsFarm" class="recent-runs empty-state">No completed runs yet.</div>
+          </div>
+        </div>
+
+        <div id="rushSummary" class="summary-mode is-hidden">
+          <div class="summary-grid">
+            <article class="summary-card">
+              <span>Rushes today</span>
+              <strong id="rushSummaryTodayCount">0</strong>
+            </article>
+            <article class="summary-card">
+              <span>Today's avg time</span>
+              <strong id="rushSummaryTodayAvg">00:00.0</strong>
+            </article>
+            <article class="summary-card">
+              <span>Today's fastest time</span>
+              <strong id="rushSummaryTodayFastest">00:00.0</strong>
+            </article>
+            <article class="summary-card">
+              <span>Total rushes</span>
+              <strong id="rushSummaryOverallCount">0</strong>
+            </article>
+            <article class="summary-card">
+              <span>Overall avg time</span>
+              <strong id="rushSummaryOverallAvg">00:00.0</strong>
+            </article>
+            <article class="summary-card">
+              <span>Fastest time</span>
+              <strong id="rushSummaryOverallFastest">00:00.0</strong>
+            </article>
+          </div>
+
+          <div class="recent-runs-wrap">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">Latest entries</p>
+                <h3>Saved rushes</h3>
+              </div>
+            </div>
+            <div id="recentRunsRush" class="recent-runs empty-state">No completed rushes yet.</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer" data-shared-footer></footer>
+  </div>
+
+  <div id="sessionModal" class="modal is-hidden" aria-hidden="true">
+  <div class="modal-backdrop"></div>
+  <div class="modal-dialog glass">
+    <div class="modal-head">
+      <div>
+        <p class="eyebrow">Session complete</p>
+        <h2>Review this session</h2>
+      </div>
+    </div>
+    <div id="sessionModalBody" class="modal-body"></div>
+    <div class="modal-actions">
+      <button id="discardSessionButton" class="secondary-button" type="button">Discard</button>
+      <button id="saveSessionButton" class="success-button" type="button">Save Session</button>
+    </div>
+  </div>
+</div>
+
+  <script src="shared.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

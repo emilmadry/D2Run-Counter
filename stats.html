@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diablo II Run Counter - Stats</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="stats">
+  <div class="page-shell">
+    <header class="topbar glass">
+      <div>
+        <p class="eyebrow">Diablo II Tracker</p>
+        <h1>All Farming Stats</h1>
+      </div>
+      <nav class="topnav">
+        <a class="nav-link" href="index.html">Tracker</a>
+        <a class="nav-link active" href="stats.html">All Stats</a>
+      </nav>
+    </header>
+
+    <main class="stats-layout">
+      <section class="leaderboard-panel glass">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Comparison</p>
+            <h2>All farming spots</h2>
+          </div>
+          <div class="backup-row backup-row-tight">
+            <button id="exportJsonButton" class="secondary-button">Export JSON</button>
+            <label class="import-label success-button">
+              Import JSON
+              <input id="importJsonInput" type="file" accept="application/json" hidden />
+            </label>
+          </div>
+        </div>
+        <div id="statsCards" class="stats-cards"></div>
+      </section>
+
+      <section class="table-panel glass">
+        <div class="section-head compact table-header-controls">
+          <div>
+            <p class="eyebrow">Raw view</p>
+            <h2>Stats table</h2>
+          </div>
+          <div class="table-filters">
+            <label>
+              <span>Sort by</span>
+              <select id="sortBy">
+                <option value="efficiencyPerMinute">Efficiency Score</option>
+                <option value="totalRuns">Total Runs</option>
+                <option value="todayRuns">Today's Runs</option>
+                <option value="averageTimeMs">Average Time</option>
+                <option value="uniqueCount">Unique</option>
+                <option value="setCount">Set</option>
+                <option value="uniqueRate">Unique %</option>
+                <option value="setRate">Set %</option>
+                <option value="highRuneRate">High Rune %</option>
+                <option value="keyCount"># of Keys</option>
+                <option value="keyRate">Key Ratio</option>
+                <option value="heraldCount">Heralds Killed</option>
+                <option value="spotName">Spot Name</option>
+              </select>
+            </label>
+            <label>
+              <span>Direction</span>
+              <select id="sortDirection">
+                <option value="desc">Descending</option>
+                <option value="asc">Ascending</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Spot</th>
+                <th>Total Runs</th>
+                <th>Today's Runs</th>
+                <th>Avg Time</th>
+                <th>Unique</th>
+                <th>Set</th>
+                <th>Unique %</th>
+                <th>Set %</th>
+                <th>High Rune %</th>
+                <th># of Keys</th>
+                <th>Key Ratio</th>
+                <th>Efficiency Score</th>
+                <th>Heralds Killed</th>
+              </tr>
+            </thead>
+            <tbody id="statsTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="table-panel glass">
+        <div class="section-head compact">
+          <div>
+            <p class="eyebrow">Separate category</p>
+            <h2>Rush stats</h2>
+          </div>
+        </div>
+        <div id="rushCards" class="stats-cards rush-cards"></div>
+        <div class="table-wrap rush-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Difficulty</th>
+                <th>Total Rushes</th>
+                <th>Today's Rushes</th>
+                <th>Average Time</th>
+                <th>Fastest Time</th>
+              </tr>
+            </thead>
+            <tbody id="rushTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer" data-shared-footer></footer>
+  </div>
+
+  <script src="shared.js"></script>
+  <script src="stats.js"></script>
+</body>
+</html>
